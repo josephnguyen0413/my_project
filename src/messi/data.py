@@ -9,10 +9,15 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
 
 def preprocess_data(raw_dir: str, processed_dir: str) -> None:
     """Process raw data and save it to processed directory."""
+    import glob
     train_images, train_target = [], []
-    for i in range(6):
-        train_images.append(torch.load(f"{raw_dir}/train_images_{i}.pt"))
-        train_target.append(torch.load(f"{raw_dir}/train_target_{i}.pt"))
+    
+    # Load all training files (handles any number of files)
+    image_files = sorted(glob.glob(f"{raw_dir}/train_images_*.pt"))
+    for image_file in image_files:
+        train_images.append(torch.load(image_file))
+        idx = image_file.split("_")[-1].split(".")[0]
+        train_target.append(torch.load(f"{raw_dir}/train_target_{idx}.pt"))
     train_images = torch.cat(train_images)
     train_target = torch.cat(train_target)
 
@@ -46,4 +51,4 @@ def corrupt_mnist() -> tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]
 
 
 if __name__ == "__main__":
-    typer.run(preprocess_data)
+    typer.run(preprocess_data)  # uv run python src/messi/data.py data/raw data/processed
