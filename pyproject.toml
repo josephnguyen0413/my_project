@@ -25,7 +25,9 @@ dependencies = [
     "matplotlib",
     "scikit-learn",
     "dvc",
-    "dvc-gdrive"
+    "dvc-gdrive",
+    "typer",
+    "gdown>=5.2.1",
 ]
 
 [dependency-groups]
@@ -56,6 +58,7 @@ explicit = true
 
 [tool.ruff]
 line-length = 120
+lint.select = ["I"] # Check import formatting
 
 [tool.coverage.run]
 omit = ["tests/*"]

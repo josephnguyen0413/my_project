@@ -1,6 +1,8 @@
 import os
+
 import pytest
 from messi.train import train
+
 
 def test_train_runs_one_epoch():
     if not os.path.exists("data/processed/train_images.pt"):

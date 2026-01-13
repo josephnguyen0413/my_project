@@ -10,8 +10,9 @@ def normalize(images: torch.Tensor) -> torch.Tensor:
 def preprocess_data(raw_dir: str, processed_dir: str) -> None:
     """Process raw data and save it to processed directory."""
     import glob
+
     train_images, train_target = [], []
-    
+
     # Load all training files (handles any number of files)
     image_files = sorted(glob.glob(f"{raw_dir}/train_images_*.pt"))
     for image_file in image_files:
